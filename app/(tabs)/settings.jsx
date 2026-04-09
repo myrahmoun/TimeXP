@@ -112,7 +112,20 @@ export default function SettingsScreen() {
   );
 
   function openModal() {
+    setEditingId(null);
     setForm(EMPTY_FORM);
+    setModalVisible(true);
+  }
+
+  function openEdit(rule) {
+    setEditingId(rule.id);
+    setForm({
+      name: rule.name,
+      type: rule.type,
+      credits: String(rule.credits),
+      unit: rule.unit,
+      project_match: rule.project_match ?? '',
+    });
     setModalVisible(true);
   }
 
@@ -129,20 +142,25 @@ export default function SettingsScreen() {
       return;
     }
 
-    setSaving(true);
-    const { error } = await supabase.from('credit_rules').insert({
+    const payload = {
       name,
       type: form.type,
       credits,
       unit: form.unit,
       project_match: form.project_match.trim() || null,
-    });
+    };
+
+    setSaving(true);
+    const { error } = editingId
+      ? await supabase.from('credit_rules').update(payload).eq('id', editingId)
+      : await supabase.from('credit_rules').insert(payload);
     setSaving(false);
 
     if (error) {
       Alert.alert('Error', 'Could not save rule.');
     } else {
       setModalVisible(false);
+      setEditingId(null);
       fetchRules();
     }
   }
@@ -198,6 +216,7 @@ export default function SettingsScreen() {
                 <RuleRow
                   key={rule.id}
                   rule={rule}
+                  onEdit={() => openEdit(rule)}
                   onDelete={() => confirmDelete(rule)}
                   isLast={idx === earnRules.length - 1}
                 />
@@ -219,6 +238,7 @@ export default function SettingsScreen() {
                 <RuleRow
                   key={rule.id}
                   rule={rule}
+                  onEdit={() => openEdit(rule)}
                   onDelete={() => confirmDelete(rule)}
                   isLast={idx === spendRules.length - 1}
                 />
@@ -256,7 +276,7 @@ export default function SettingsScreen() {
           >
             {/* Modal header */}
             <View className="flex-row items-center justify-between mb-8">
-              <Text className="text-white text-xl font-bold">New Rule</Text>
+              <Text className="text-white text-xl font-bold">{editingId ? 'Edit Rule' : 'New Rule'}</Text>
               <TouchableOpacity onPress={() => setModalVisible(false)}>
                 <Ionicons name="close" size={24} color="#64748b" />
               </TouchableOpacity>
