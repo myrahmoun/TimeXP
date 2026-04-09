@@ -1,0 +1,19 @@
+node_modules/
+.expo/
+dist/
+web-build/
+.env
+*.log
+
+# iOS
+ios/Pods/
+
+# Android
+android/.gradle/
+android/app/build/
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
