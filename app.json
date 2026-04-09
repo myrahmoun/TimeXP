@@ -11,15 +11,11 @@
       "bundleIdentifier": "com.timexp.app"
     },
     "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#0f0a1e"
-      },
       "package": "com.timexp.app"
     },
     "web": {
       "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/favicon.png"
+      "output": "static"
     },
     "plugins": ["expo-router"],
     "experiments": {
