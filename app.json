@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "TimeXP",
+    "slug": "timexp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "timexp",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.timexp.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0f0a1e"
+      },
+      "package": "com.timexp.app"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
