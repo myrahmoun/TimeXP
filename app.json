@@ -14,8 +14,9 @@
       "package": "com.timexp.app"
     },
     "web": {
-      "bundler": "metro",
-      "output": "static"
+    "bundler": "metro",
+    "output": "static",
+    "publicPath": "/timexp"
     },
     "plugins": ["expo-router"],
     "experiments": {
